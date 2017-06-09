@@ -27,6 +27,8 @@ class ViewController: UIViewController, UITextFieldDelegate ,AVCapturePhotoCaptu
 
 	//bpm
 	//var bpm
+	@IBOutlet weak var yourbpm: UILabel!
+	var i = 0
 	
 	
 	//storyboard imageview
@@ -79,6 +81,12 @@ class ViewController: UIViewController, UITextFieldDelegate ,AVCapturePhotoCaptu
 		catch{
 			print(error)
 		}
+		
+		if(i == 0){
+			i = i + 1
+			readData()
+		}
+		
 		
 	}
 
@@ -145,17 +153,19 @@ class ViewController: UIViewController, UITextFieldDelegate ,AVCapturePhotoCaptu
 			}
 			
 			//取得したサンプルを単位に合わせる
-			DispatchQueue.main.async {
+			DispatchQueue.main.sync {
 				
 				let count:HKUnit = HKUnit.count()
 				let minute: HKUnit = HKUnit.minute()
 				let countPerMinute:HKUnit = count.unitMultiplied(by: minute.reciprocal())
 				
 				let bpm = myRecentSample.quantity.doubleValue(for: countPerMinute)
+				let intbpm = Int(bpm)
+				self.yourbpm.text = String(intbpm)
 				
 				//var pulsepersec = myRecentSample.quantity
 				//var pulse = pulsepersec * 60
-				print(bpm)
+				//print(bpm)
 				//self.myReadHeartRateField.text = "\(bpm)"
 				
 			}
@@ -182,22 +192,32 @@ class ViewController: UIViewController, UITextFieldDelegate ,AVCapturePhotoCaptu
 			
 			let wi: UIImage = UIImage(data: photoData!)!
 			
-			let cg : CGImage = wi.cgImage!;
+			let cg1 : CGImage = wi.cgImage!;
+	
+			let image = UIImage(cgImage: cg1, scale: wi.scale, orientation: UIImageOrientation(rawValue: 90)!)
 			
-			let image = UIImage(cgImage: cg, scale: wi.scale, orientation: .up)
-			
+			let cg : CGImage = image.cgImage!;
 			
 			//exifデータ作成
 			let exif = NSMutableDictionary()
 			//Exifにコメント情報をセットする
-			//let value = myRecentSample.quantity.doubleValue(for: countPerMinute)
+			var value = self.yourbpm.text
+			var comment = Int(value!)
+			//print(type(of: comment))
 			
-			/*
+			//撮影時間埋め込み
+			let formatter = DateFormatter()
+			formatter.dateFormat = "yyyy-MM-dd' 'HH:mm:ss"
+			let time = Date()
+			//print(time)
+			let now = formatter.string(from: time)
+			print(now)
+			print(type(of: now))
+			
+			//exif埋め込み処理
 			exif.setObject("photoshot",forKey: kCGImagePropertyPNGTitle as CFString as! NSCopying)
 			exif.setObject(comment, forKey: kCGImagePropertyExifUserComment as NSString)
-			*/
-			//exif.setObject("photoshot", forKey: kCGImagePropertyPNGTitle as CFString)
-			exif[(kCGImagePropertyExifUserComment as CFString)] = "hoge"
+			exif.setObject(now, forKey: kCGImagePropertyExifDateTimeOriginal as CFString as! NSCopying)
 			
 			
 			//静止画metadata作成
@@ -207,7 +227,7 @@ class ViewController: UIViewController, UITextFieldDelegate ,AVCapturePhotoCaptu
 			//フォト保存
 			//メタデータ保存のためphotoframework 使用
 			let tmpName = ProcessInfo.processInfo.globallyUniqueString
-			let tmpUrl = NSURL.fileURL(withPath: NSTemporaryDirectory() + tmpName + "jpg")
+			let tmpUrl = NSURL.fileURL(withPath: NSTemporaryDirectory() + tmpName + ".jpg")
 			//print(tmpUrl)
 			
 			
@@ -217,10 +237,10 @@ class ViewController: UIViewController, UITextFieldDelegate ,AVCapturePhotoCaptu
 				CGImageDestinationFinalize(dest)
 				print(dest)
 				
-				//print(metadata)
+				print(metadata)
 				//保存処理
-				let library = PHPhotoLibrary.shared
-				library().performChanges({ PHAssetChangeRequest.creationRequestForAssetFromImage(atFileURL: tmpUrl) },completionHandler: { (ok, err) in print(ok, err)
+				let library = PHPhotoLibrary.shared()
+				library.performChanges({ PHAssetChangeRequest.creationRequestForAssetFromImage(atFileURL: tmpUrl) },completionHandler: { (ok, err) in print(ok, err)
 					//let _ = try? FileManager.default.removeItem(at:tmpUrl)
 				})
 				
