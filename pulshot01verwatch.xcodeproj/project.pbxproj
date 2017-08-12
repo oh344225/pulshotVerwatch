@@ -435,10 +435,12 @@
 				CODE_SIGN_ENTITLEMENTS = pulshot01verwatch/pulshot01verwatch.entitlements;
 				DEVELOPMENT_TEAM = LP4P63WJX3;
 				INFOPLIST_FILE = pulshot01verwatch/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = oh.pulshot01verwatch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -449,10 +451,12 @@
 				CODE_SIGN_ENTITLEMENTS = pulshot01verwatch/pulshot01verwatch.entitlements;
 				DEVELOPMENT_TEAM = LP4P63WJX3;
 				INFOPLIST_FILE = pulshot01verwatch/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = oh.pulshot01verwatch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -533,6 +537,7 @@
 				4A5473261E8B7ADD00196B94 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4A5473271E8B7ADD00196B94 /* Build configuration list for PBXNativeTarget "pulshot01verwatchTests" */ = {
 			isa = XCConfigurationList;
@@ -541,6 +546,7 @@
 				4A5473291E8B7ADD00196B94 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4A54732A1E8B7ADD00196B94 /* Build configuration list for PBXNativeTarget "pulshot01verwatchUITests" */ = {
 			isa = XCConfigurationList;
@@ -549,6 +555,7 @@
 				4A54732C1E8B7ADD00196B94 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

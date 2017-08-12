@@ -39,6 +39,7 @@ class ViewController: UIViewController, UITextFieldDelegate ,AVCapturePhotoCaptu
 	//ここの部分を書き換えた avcapturestillImageoutput　からAVCapturePhotoOutput
 	
 	
+	
 	@IBAction func takePhoto(_ sender: Any) {
 		//takephoto設定
 		let settingsForMonitoring = AVCapturePhotoSettings()
@@ -50,7 +51,15 @@ class ViewController: UIViewController, UITextFieldDelegate ,AVCapturePhotoCaptu
 	//    AVCapturePhotoSettingsという新しいClassがAVCapturePhotoOutputと一緒に追加された。
 	//    フラッシュなどの細かい設定はAVCapturePhotoSettingsで行う
 	
+	override func viewDidAppear(_ animated: Bool) {
+		
+		super.viewDidAppear(animated)
+		//Healthstoreから許可申請
+		requestAuthorization()
+		
+	}
 	
+
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -95,14 +104,6 @@ class ViewController: UIViewController, UITextFieldDelegate ,AVCapturePhotoCaptu
 			super.didReceiveMemoryWarning()
 			// Dispose of any resources that can be recreated.
 	
-	}
-	
-	override func viewDidAppear(_ animated: Bool) {
-	
-		super.viewDidAppear(animated)
-		//Healthstoreから許可申請
-		requestAuthorization()
-		
 	}
 	
 	
@@ -213,12 +214,11 @@ class ViewController: UIViewController, UITextFieldDelegate ,AVCapturePhotoCaptu
 			let now = formatter.string(from: time)
 			print(now)
 			print(type(of: now))
-			
+
 			//exif埋め込み処理
 			exif.setObject("photoshot",forKey: kCGImagePropertyPNGTitle as CFString as! NSCopying)
+			//exif.setObject(now, forKey: kCGImagePropertyExifDateTimeOriginal as CFString as! NSCopying)
 			exif.setObject(comment, forKey: kCGImagePropertyExifUserComment as NSString)
-			exif.setObject(now, forKey: kCGImagePropertyExifDateTimeOriginal as CFString as! NSCopying)
-			
 			
 			//静止画metadata作成
 			let metadata = NSMutableDictionary()
@@ -243,17 +243,11 @@ class ViewController: UIViewController, UITextFieldDelegate ,AVCapturePhotoCaptu
 				library.performChanges({ PHAssetChangeRequest.creationRequestForAssetFromImage(atFileURL: tmpUrl) },completionHandler: { (ok, err) in print(ok, err)
 					//let _ = try? FileManager.default.removeItem(at:tmpUrl)
 				})
-				
+				print(library)
 
 			}
-
-			
-			
-			
 			//フォトライブラリ保存
 			//UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
-			
-			
 		}
 		
 	}
