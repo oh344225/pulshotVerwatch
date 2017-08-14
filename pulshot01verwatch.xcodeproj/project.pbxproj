@@ -50,6 +50,8 @@
 		4A5473211E8B7ADD00196B94 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4A54732D1E8B7AE900196B94 /* pulshot01verwatch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = pulshot01verwatch.entitlements; sourceTree = "<group>"; };
 		4A54732F1E8B7AE900196B94 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		4AF4CEBC1F41680D00D65213 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
+		4AF4CEBE1F41681600D65213 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +136,8 @@
 		4A54732E1E8B7AE900196B94 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4AF4CEBE1F41681600D65213 /* ImageIO.framework */,
+				4AF4CEBC1F41680D00D65213 /* Photos.framework */,
 				4A54732F1E8B7AE900196B94 /* HealthKit.framework */,
 			);
 			name = Frameworks;
@@ -435,7 +439,7 @@
 				CODE_SIGN_ENTITLEMENTS = pulshot01verwatch/pulshot01verwatch.entitlements;
 				DEVELOPMENT_TEAM = LP4P63WJX3;
 				INFOPLIST_FILE = pulshot01verwatch/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = oh.pulshot01verwatch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -451,7 +455,7 @@
 				CODE_SIGN_ENTITLEMENTS = pulshot01verwatch/pulshot01verwatch.entitlements;
 				DEVELOPMENT_TEAM = LP4P63WJX3;
 				INFOPLIST_FILE = pulshot01verwatch/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = oh.pulshot01verwatch;
 				PRODUCT_NAME = "$(TARGET_NAME)";

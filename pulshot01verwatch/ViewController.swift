@@ -182,72 +182,100 @@ class ViewController: UIViewController, UITextFieldDelegate ,AVCapturePhotoCaptu
 		readData()
 		
 		
-		if let photoSampleBuffer = photoSampleBuffer{
-		
+		if let photoSampleBuffer = photoSampleBuffer {
 			
-			//jpeg形式で取得
-			let photoData = AVCapturePhotoOutput.jpegPhotoDataRepresentation(forJPEGSampleBuffer: photoSampleBuffer, previewPhotoSampleBuffer:previewPhotoSampleBuffer)
-			
-			//let image = UIImage(data: photoData!)
-			
+			// JPEG形式で画像データを取得
+			let photoData = AVCapturePhotoOutput.jpegPhotoDataRepresentation(forJPEGSampleBuffer: photoSampleBuffer, previewPhotoSampleBuffer: previewPhotoSampleBuffer)
+			//let image = CGImageSourceCreateWithData((data as! CFDataRef), nil)
 			
 			let wi: UIImage = UIImage(data: photoData!)!
 			
-			let cg1 : CGImage = wi.cgImage!;
-	
-			let image = UIImage(cgImage: cg1, scale: wi.scale, orientation: UIImageOrientation(rawValue: 90)!)
 			
-			let cg : CGImage = image.cgImage!;
 			
-			//exifデータ作成
+			let cg : CGImage = wi.cgImage!;
+			
+			// 画像の向きを指定
+			let image = UIImage(cgImage: cg, scale: wi.scale, orientation: .up)
+			
+			
+			//EXIFデータの作成
 			let exif = NSMutableDictionary()
 			//Exifにコメント情報をセットする
-			var value = self.yourbpm.text
-			var comment = Int(value!)
-			//print(type(of: comment))
+			let value = self.yourbpm.text
+			let comment = value
 			
-			//撮影時間埋め込み
-			let formatter = DateFormatter()
-			formatter.dateFormat = "yyyy-MM-dd' 'HH:mm:ss"
-			let time = Date()
-			//print(time)
-			let now = formatter.string(from: time)
-			print(now)
-			print(type(of: now))
-
-			//exif埋め込み処理
+			//print(comment)
+			//print()
+			
+			
+			//exifに情報追加
 			exif.setObject("photoshot",forKey: kCGImagePropertyPNGTitle as CFString as! NSCopying)
-			//exif.setObject(now, forKey: kCGImagePropertyExifDateTimeOriginal as CFString as! NSCopying)
-			exif.setObject(comment, forKey: kCGImagePropertyExifUserComment as NSString)
+			exif.setObject(comment!, forKey: kCGImagePropertyExifUserComment as
+			CFString as! NSCopying)
 			
+			//exif[(kCGImagePropertyExifUserComment as CFString)] = "hoge"
+			//print(value)
+			print(comment!)
+			print(type(of: comment))
+			//print(type(of: exif))
+			//
 			//静止画metadata作成
 			let metadata = NSMutableDictionary()
-			metadata.setObject(exif, forKey: kCGImagePropertyExifDictionary as! NSCopying )
+			metadata.setObject(exif,forKey:kCGImagePropertyExifDictionary as! NSCopying);
+			/*
+			//サンプル
+			//ワイキキビーチの位置情報を作成する
+			let gps = NSMutableDictionary()
+			gps.setObject("N",forKey:kCGImagePropertyGPSLatitudeRef as! NSCopying)
+			gps.setObject(21.275468,forKey:kCGImagePropertyGPSLatitude as! NSCopying)
+			gps.setObject("W",forKey:kCGImagePropertyGPSLongitudeRef as! NSCopying)
+			gps.setObject(157.825294,forKey:kCGImagePropertyGPSLongitude as! NSCopying)
+			gps.setObject(0,forKey:kCGImagePropertyGPSAltitudeRef as! NSCopying)
+			gps.setObject(0,forKey:kCGImagePropertyGPSAltitude as! NSCopying)
+			//ExifにGPS情報をセットする
+			metadata.setObject(gps,forKey:kCGImagePropertyGPSDictionary as! NSCopying);
+			*/
+			
 			
 			//フォト保存
-			//メタデータ保存のためphotoframework 使用
+			//メタデータ保存のためにphotoframework使用
 			let tmpName = ProcessInfo.processInfo.globallyUniqueString
 			let tmpUrl = NSURL.fileURL(withPath: NSTemporaryDirectory() + tmpName + ".jpg")
+			//print(type(of: tmpUrl))
 			//print(tmpUrl)
+			//一時保存
+			//addNewAssetImage(with: cg,withpath: tmpUrl as URL!)
 			
-			
-			if let dest = CGImageDestinationCreateWithURL(tmpUrl as CFURL, kUTTypeJPEG, 1, nil){
+			if let dest = CGImageDestinationCreateWithURL(tmpUrl as CFURL, kUTTypeJPEG, 1, nil) {
 				
-				CGImageDestinationAddImage(dest, cg, (metadata as CFDictionary))
+				CGImageDestinationAddImage(dest,cg, (metadata as CFDictionary))
 				CGImageDestinationFinalize(dest)
-				print(dest)
-				
-				print(metadata)
+				//CFRelease(dest)
+				//print(dest)
+				//print(exif)
+				print(exif)
 				//保存処理
 				let library = PHPhotoLibrary.shared()
 				library.performChanges({ PHAssetChangeRequest.creationRequestForAssetFromImage(atFileURL: tmpUrl) },completionHandler: { (ok, err) in print(ok, err)
-					//let _ = try? FileManager.default.removeItem(at:tmpUrl)
+					let _ = try? FileManager.default.removeItem(at:tmpUrl)
 				})
-				print(library)
-
+				
+				
+				//pulselabel.text = String(photovalue)
+				print("photo save ok")
+				
 			}
-			//フォトライブラリ保存
-			//UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
+			//exif確認処理
+			//let photourl = tmpUrl.absoluteString
+			print(tmpUrl)
+			
+			
+			
+			// フォトライブラリに保存
+			//print("photo save ok")
+			//UIImageWriteToSavedPhotosAlbum(image!, nil, nil, dest)
+			//
+			
 		}
 		
 	}
