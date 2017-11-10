@@ -211,7 +211,7 @@
 				TargetAttributes = {
 					4A5472FB1E8B7ADC00196B94 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = LP4P63WJX3;
+						DevelopmentTeam = 6Y3S6RLA4Y;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.HealthKit = {
@@ -437,7 +437,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = pulshot01verwatch/pulshot01verwatch.entitlements;
-				DEVELOPMENT_TEAM = LP4P63WJX3;
+				DEVELOPMENT_TEAM = 6Y3S6RLA4Y;
 				INFOPLIST_FILE = pulshot01verwatch/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -453,7 +453,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = pulshot01verwatch/pulshot01verwatch.entitlements;
-				DEVELOPMENT_TEAM = LP4P63WJX3;
+				DEVELOPMENT_TEAM = 6Y3S6RLA4Y;
 				INFOPLIST_FILE = pulshot01verwatch/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

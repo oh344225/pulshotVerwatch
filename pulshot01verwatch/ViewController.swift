@@ -43,7 +43,8 @@ class ViewController: UIViewController, UITextFieldDelegate ,AVCapturePhotoCaptu
 	@IBAction func takePhoto(_ sender: Any) {
 		//takephoto設定
 		let settingsForMonitoring = AVCapturePhotoSettings()
-		settingsForMonitoring.flashMode = .auto
+		//フラッシュはデフォルト　オフ
+		//settingsForMonitoring.flashMode = .auto
 		settingsForMonitoring.isAutoStillImageStabilizationEnabled = true
 		settingsForMonitoring.isHighResolutionPhotoEnabled = false
 		stillImgaeOutput?.capturePhoto(with: settingsForMonitoring, delegate: self)
