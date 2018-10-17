@@ -52,6 +52,14 @@ class ViewController: UIViewController, UITextFieldDelegate ,AVCapturePhotoCaptu
 	//    AVCapturePhotoSettingsという新しいClassがAVCapturePhotoOutputと一緒に追加された。
 	//    フラッシュなどの細かい設定はAVCapturePhotoSettingsで行う
 	
+	@IBAction func Tapautocamera(_ sender: Any) {
+		print("tap")
+		
+	}
+	
+	
+	
+	//画面が表示された直後呼び出し
 	override func viewDidAppear(_ animated: Bool) {
 		
 		super.viewDidAppear(animated)
@@ -61,7 +69,7 @@ class ViewController: UIViewController, UITextFieldDelegate ,AVCapturePhotoCaptu
 	}
 	
 
-	
+	//インスタンス化された直後（初回に一度のみ
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		// Do any additional setup after loading the view, typically from a nib.
@@ -100,6 +108,7 @@ class ViewController: UIViewController, UITextFieldDelegate ,AVCapturePhotoCaptu
 		
 	}
 
+	
 	override func didReceiveMemoryWarning() {
 		
 			super.didReceiveMemoryWarning()
@@ -150,7 +159,7 @@ class ViewController: UIViewController, UITextFieldDelegate ,AVCapturePhotoCaptu
 			//一番最近に登録されたデータ取得
 			guard let myRecentSample = results!.first as? HKQuantitySample else{
 				print("error")
-				self.myReadHeartRateField.text = "Data is not found"
+				//self.myReadHeartRateField.text = "Data is not found"
 				return
 			}
 			
@@ -172,7 +181,6 @@ class ViewController: UIViewController, UITextFieldDelegate ,AVCapturePhotoCaptu
 				
 			}
 		}
-		
 		//query発行
 		self.myHealthStore.execute(myquery)
 	}
